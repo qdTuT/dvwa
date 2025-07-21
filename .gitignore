@@ -2,12 +2,19 @@
 # into the repo.
 config/config.inc.php.bak
 config/config.inc.php
+config.inc.php.dist
+
+# Temporary files or logs
+tmp/
+logs/
+*.log
 
 # Vim swap files
 .*swp
 
 # VS Code editor files
 *.code-workspace
+.vscode/
 
 # Used by pytest
 tests/__pycache__/
