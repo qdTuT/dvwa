@@ -6,6 +6,8 @@ The aim of DVWA is to **practice some of the most common web vulnerabilities**, 
 Please note, there are **both documented and undocumented vulnerabilities** with this software. This is intentional. You are encouraged to try and discover as many issues as possible.
 - - -
 
+[TOC]
+
 ## WARNING!
 
 Damn Vulnerable Web Application is damn vulnerable! **Do not upload it to your hosting provider's public html folder or any Internet facing servers**, as they will be compromised. It is recommended using a virtual machine (such as [VirtualBox](https://www.virtualbox.org/) or [VMware](https://www.vmware.com/)), which is set to NAT networking mode. Inside a guest machine, you can download and install [XAMPP](https://www.apachefriends.org/) for the web server and database.
@@ -243,6 +245,8 @@ apachectl restart
 
 ### Vendor Files
 
+Official method： 
+
 If you want to use the API module you will need to install a set of vendor files using [Composer](https://getcomposer.org/).
 
 First, make sure you have Composer installed. There seem to be backward compatibility issues so I always get the latest version from here:
@@ -258,6 +262,29 @@ composer.phar install
 ```
 
 If you did not install Composer to the system path, make sure you reference its full location.
+
+My method：
+
+If you don't use composer to install vendor files, you can create vendor directory in /var/www/html/dvwa, then create phpass and php-csrf directory in vendor, you can run:
+
+```
+cd /var/www/html/dvwa/
+
+mkdir vendor
+
+mkdir vendor/phpass vendor/php-csrf
+```
+Nextly need to respective import Token.php and PasswordHash.php to php-csrf and phpass, you can run:
+
+```
+cp vulnerabilities/api/src/Token.php vendor/php-csrf/Token.php
+
+cd vendor/phpass
+
+wget https://raw.githubusercontent.com/openwall/phpass/master/src/PasswordHash.php
+```
+
+Lastly go to setup.php find judge vendor whether installed sentence, the path revise ~/vulnerabilities/api/vendor to /var/www/html/dvwa/vendor, then restart apache2 service can be OK.
 
 ## Configurations
 
